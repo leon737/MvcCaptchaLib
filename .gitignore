@@ -1,0 +1,11 @@
+obj/
+bin/
+deploy/
+packages/
+*.csproj.user
+_ReSharper.*
+*.[Rr]e[Ss]harper.user
+*.DotSettings.user
+*.suo
+*.cache
+TestResults/
