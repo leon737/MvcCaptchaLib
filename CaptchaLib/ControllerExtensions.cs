@@ -1,5 +1,5 @@
 ﻿/*
-ASP.NET MVC Web Application Captcha Library Copyright (C) 2009-2012 Leonid Medyantsev, Leonid Gordo
+ASP.NET MVC Web Application Captcha Library Copyright (C) 2009-2012 Leonid Leonid Gordo
 
 This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation; 
 either version 3.0 of the License, or (at your option) any later version.
@@ -11,13 +11,15 @@ You should have received a copy of the GNU Lesser General Public License along w
 if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA 
 */
 
-using System.IO;
+using System.Web.Mvc;
 
 namespace CaptchaLib
 {
-    public interface ICaptchaImage
+    public static class ControllerExtensions
     {
-        void SaveImageToStream(Stream outputStream, int quality, int width, int height);
-        void SaveImageToStream(Stream outputStream, int quality, int width, int height, string s);
+        public static CaptchaResult Captcha(this Controller controller, ICaptchaImage captchaImage, int quality = 50, int width = 150, int height = 45 )
+        {
+            return new CaptchaResult(captchaImage, quality, width, height);
+        }
     }
 }

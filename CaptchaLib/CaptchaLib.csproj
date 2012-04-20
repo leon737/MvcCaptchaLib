@@ -54,6 +54,7 @@
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -64,7 +65,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CaptchaResult.cs" />
     <Compile Include="CaptchaImage.cs" />
+    <Compile Include="ControllerExtensions.cs" />
     <Compile Include="ICaptchaImage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
