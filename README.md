@@ -1,4 +1,4 @@
-MvcBlanket
+MvcCaptchaLib
 ==========
 
 ASP.NET MVC compliant captcha generation library.
