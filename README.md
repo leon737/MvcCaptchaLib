@@ -1,7 +1,7 @@
 MvcBlanket
 ==========
 
-MVC compliant captcha generation library
+ASP.NET MVC compliant captcha generation library.
 
 Features
 --------
@@ -9,6 +9,7 @@ Features
 The following features are supported:
 
 * Fully customizable rendering engine
+* AJAX-enabled captcha image refresh
 * Integrates into ASP.NET MVC workflow by providing the special CaptchaResult action result and Captcha controller's extension method.
 * Provides support of entered captcha code validation using declarative approach by ValidateCaptcha validation attribute
 
@@ -41,6 +42,10 @@ Write the following code to the view:
 		@Html.CaptchaFor(m => m.Captcha, "GetCaptcha", "Is captcha unintelligible? Reload new one.")
 		@Html.ValidationMessageFor(m => m.Captcha)
 
+Copy `captcha.js` file to your web application project. 
+Add reference to the javascript like this:
+
+		<script type="text/javascript" src="@Url.Content("~/Scripts/captcha.js")"></script>
 
 ###Customization
 
