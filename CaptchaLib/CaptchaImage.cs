@@ -15,12 +15,14 @@ using System;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 
 namespace CaptchaLib
 {
-    public class CaptchaImage : ICaptchaImage
+    public class CaptchaImage : ICaptchaImage, ICaptchaValue
     {
         readonly Random r;
 
@@ -52,6 +54,9 @@ namespace CaptchaLib
             }
         }
 
+
+        public string CaptchaUniqueId { get; set; }
+
         public CaptchaImage()
         {
             r = GenerateRandomInit();
@@ -63,12 +68,47 @@ namespace CaptchaLib
             BgColor = Color.White;
             XShift = new Point(-10, 10);
             YShift = new Point(-8, 8);
-            XDistortion = new Point(-5, 10);
+            XDistortion = new Point(5, 10);
             YDistortion = new Point(0, 7);
-            FgAlpha = new Point(70, 90);
+            FgAlpha = new Point(50, 70);
             Angle = new Point(-45, 45);
-            NoiseCount = 500;
+            NoiseCount = 1000;
         }
+
+
+        private string captchaValue;
+        public string CaptchaValue
+        {
+            get
+            {
+                captchaValue = GenerateNewCaptchaValue();
+                return captchaValue;
+            }
+        }
+
+        string ICaptchaValue.RenderedValue
+        {
+            get
+            {
+                return string.IsNullOrWhiteSpace(captchaValue) ? CaptchaValue : captchaValue;
+            }
+        }
+
+        
+
+        private string GenerateNewCaptchaValue()
+        {
+            var digits = new string(Enumerable.Repeat(Enumerable.Range(0, 10), 4).SelectMany(v => v)
+                 .OrderBy(v => Guid.NewGuid()).Take(4).Select(v => v.ToString(CultureInfo.InvariantCulture)[0]).ToArray());
+            return digits;
+        }
+
+
+        public void SaveImageToStream(Stream outputStream, int quality, int width, int height)
+        {
+            SaveImageToStream(outputStream, quality, width, height, captchaValue);
+        }
+
 
         public void SaveImageToStream(Stream outputStream, int quality, int width, int height, string s)
         {
