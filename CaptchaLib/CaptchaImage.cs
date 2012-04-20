@@ -22,7 +22,7 @@ using System.Security.Cryptography;
 
 namespace CaptchaLib
 {
-    public class CaptchaImage : ICaptchaImage
+    public class CaptchaImage : ICaptchaImage, ICaptchaValue
     {
         readonly Random r;
 
@@ -54,6 +54,9 @@ namespace CaptchaLib
             }
         }
 
+
+        public string CaptchaUniqueId { get; set; }
+
         public CaptchaImage()
         {
             r = GenerateRandomInit();
@@ -82,6 +85,16 @@ namespace CaptchaLib
                 return captchaValue;
             }
         }
+
+        string ICaptchaValue.RenderedValue
+        {
+            get
+            {
+                return string.IsNullOrWhiteSpace(captchaValue) ? CaptchaValue : captchaValue;
+            }
+        }
+
+        
 
         private string GenerateNewCaptchaValue()
         {

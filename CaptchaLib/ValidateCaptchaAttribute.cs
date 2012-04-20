@@ -11,23 +11,22 @@ You should have received a copy of the GNU Lesser General Public License along w
 if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA 
 */
 
-using System.Web.Mvc;
+
+using System.ComponentModel.DataAnnotations;
+using System.Web;
 
 namespace CaptchaLib
 {
-    public static class ControllerExtensions
+    public class ValidateCaptchaAttribute : ValidationAttribute
     {
-        public static CaptchaResult Captcha(this Controller controller)
-        {
-            return Captcha(controller, new CaptchaImage());
-        }
+        public string CaptchaUniqueId { get; set; }
 
-        public static CaptchaResult Captcha(this Controller controller, ICaptchaImage captchaImage, int quality = 50, int width = 150, int height = 45 )
+        public override bool IsValid(object value)
         {
-            var captchaValue = captchaImage as ICaptchaValue;
-            if (captchaValue != null)
-                controller.Session[CaptchaConstants.CaptchaUniqueIdPrefix + captchaImage.CaptchaUniqueId] = captchaValue.RenderedValue;
-            return new CaptchaResult(captchaImage, quality, width, height);
+            var userValue = value as string;
+            var correctValue = HttpContext.Current.Session[CaptchaConstants.CaptchaUniqueIdPrefix + CaptchaUniqueId] as string;
+            HttpContext.Current.Session.Remove(CaptchaConstants.CaptchaUniqueIdPrefix + CaptchaUniqueId);
+            return userValue == correctValue;
         }
     }
 }
