@@ -15,7 +15,9 @@ using System;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 
 namespace CaptchaLib
@@ -69,6 +71,31 @@ namespace CaptchaLib
             Angle = new Point(-45, 45);
             NoiseCount = 500;
         }
+
+
+        private string captchaValue;
+        public string CaptchaValue
+        {
+            get
+            {
+                captchaValue = GenerateNewCaptchaValue();
+                return captchaValue;
+            }
+        }
+
+        private string GenerateNewCaptchaValue()
+        {
+            var digits = new string(Enumerable.Repeat(Enumerable.Range(0, 10), 4).SelectMany(v => v)
+                 .OrderBy(v => Guid.NewGuid()).Take(4).Select(v => v.ToString(CultureInfo.InvariantCulture)[0]).ToArray());
+            return digits;
+        }
+
+
+        public void SaveImageToStream(Stream outputStream, int quality, int width, int height)
+        {
+            SaveImageToStream(outputStream, quality, width, height, captchaValue);
+        }
+
 
         public void SaveImageToStream(Stream outputStream, int quality, int width, int height, string s)
         {
