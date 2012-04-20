@@ -65,11 +65,11 @@ namespace CaptchaLib
             BgColor = Color.White;
             XShift = new Point(-10, 10);
             YShift = new Point(-8, 8);
-            XDistortion = new Point(-5, 10);
+            XDistortion = new Point(5, 10);
             YDistortion = new Point(0, 7);
-            FgAlpha = new Point(70, 90);
+            FgAlpha = new Point(50, 70);
             Angle = new Point(-45, 45);
-            NoiseCount = 500;
+            NoiseCount = 1000;
         }
 
 
