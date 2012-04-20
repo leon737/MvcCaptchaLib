@@ -15,12 +15,11 @@ The following features are supported:
 Using
 --------
 
-###Generation of the captcha image
+###Generating captcha image
 
-Write following code to the controller's action method:
+Write the following code to the controller's action method:
 
-		[ActionName("Captcha")]
-		public ActionResult ShowCaptcha()
+		public ActionResult GetCaptcha()
 		{
 			return this.Captcha();
 		}
@@ -30,10 +29,17 @@ Write following code to the controller's action method:
 
 Write following code to the model you use:
 
-		[Captcha]
+		[ValidateCaptcha]
 		public string Captcha {get;set;}
 		
 The validation then runs as usual and you can check is the model valid by accessing `ModelState.IsValid` property in your action method.
+
+###Rendering to the HTML
+
+Write the following code to the view:
+
+		@Html.CaptchaFor(m => m.Captcha, "GetCaptcha", "Is captcha unintelligible? Reload new one.")
+		@Html.ValidationMessageFor(m => m.Captcha)
 
 
 ###Customization
