@@ -42,7 +42,7 @@ Write the following code to the view:
 		@Html.CaptchaFor(m => m.Captcha, "GetCaptcha", "Is captcha unintelligible? Reload new one.")
 		@Html.ValidationMessageFor(m => m.Captcha)
 
-Copy `captcha.js` file to your web application project. 
+Copy `captcha.js` file to your web application project. (This script uses Jquery 1.3+, make sure you also reference this as well.)
 Add reference to the javascript like this:
 
 		<script type="text/javascript" src="@Url.Content("~/Scripts/captcha.js")"></script>
