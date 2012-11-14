@@ -68,7 +68,7 @@ namespace CaptchaLib
         public static IHtmlString CaptchaFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression,
             string actionName, string controllerName, object routeValues, string refreshLabel, object htmlAttributes)
         {
-            return CaptchaHelper(htmlHelper, ExpressionHelper.GetExpressionText(expression), null /* routeName */, actionName, controllerName, routeValues, refreshLabel, null);
+            return CaptchaHelper(htmlHelper, ExpressionHelper.GetExpressionText(expression), null /* routeName */, actionName, controllerName, routeValues, refreshLabel, htmlAttributes);
         }
 
         private static IHtmlString CaptchaHelper(this HtmlHelper htmlHelper, string name,
