@@ -86,7 +86,7 @@ namespace CaptchaLib
             container.InnerHtml = image.ToString(TagRenderMode.SelfClosing);
 
             var refresh = new TagBuilder("a");
-            refresh.MergeAttribute("href", "#");
+            refresh.MergeAttribute("href", "javascript:void(0)");
             refresh.MergeAttribute("class", "newCaptcha");
             refresh.SetInnerText(refreshLabel);
 
