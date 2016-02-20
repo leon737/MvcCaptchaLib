@@ -1,0 +1,41 @@
+﻿@model TestWebApp.Models.TestCaptchaModel
+@using CaptchaLib
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Test captcha</title>
+         <script type="text/javascript" src="@Url.Content("~/Scripts/captcha.js")"></script>
+    </head>
+    <body>
+        <div>
+            @using (Html.BeginForm())
+            {
+                <p>
+                    @Html.ValidationSummary()
+                    @if (ViewBag.IsCaptchaValid)
+                    {
+                        <span>Captcha is OK!</span>
+                    }
+                </p>
+                
+                <p>
+                    @Html.CaptchaFor(m => m.Captcha, "GetCaptcha", "Is captcha unintelligible? Reload new one.")
+                    @Html.ValidationMessageFor(m => m.Captcha)
+                </p>
+                
+                <p>
+                    <input type="submit" value="Send"/>
+                </p>
+            }
+            
+
+              
+        </div>
+    </body>
+</html>
